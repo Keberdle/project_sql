@@ -117,3 +117,14 @@ UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
 SET tvkpSf.mortaliy_under5 = c.mortaliy_under5
 WHERE 1
 ;
+
+#median_age_2018
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD median_age_2018 double NULL
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
+    LEFT JOIN countries c ON tvkpSf.country = c.country
+SET tvkpSf.median_age_2018 = c.median_age_2018
+WHERE c.median_age_2018 IS NOT NULL
+;
