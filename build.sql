@@ -71,3 +71,15 @@ SET time_season_code = CASE
     END
 WHERE 1
 ;
+
+#population_density
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD population_density double NULL
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
+    LEFT JOIN countries c ON tvkpSf.country = c.country
+SET tvkpSf.population_density = c.population_density
+WHERE 1
+;
+

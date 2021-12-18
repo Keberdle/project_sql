@@ -33,10 +33,11 @@ Výstupem by měla být tabulka na databázi, ze které se požadovaná data daj
 ## Description
 #### tests_performed
 Source table covid19_tests
+Problems bellow is about 1% of data and only for some countries. So it no depend too much on solutions.
 Problems:
  
 **1, Bahrain has only enitity = "unit unclear"** 
-Solution: Use it as number of test
+Solution: Use it as number of test - is used now.
 
 **2, There is multiple rows for one day and country:**
 
@@ -47,6 +48,7 @@ Solution: Use it as number of test
 "tests performed,units unclear (incl. non-PCR)"
 
 Solution: 
+* let it be - because it is only for 1% of days, countries other countries do not have this data?! 
 * change test_performed by entity = "people tested"
 * change test_performed by entity = "people tested (incl. non-PCR"
 * substract amount of "units unclear (incl. non-PCR)" 

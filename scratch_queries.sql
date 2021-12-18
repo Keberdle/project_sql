@@ -117,3 +117,6 @@ SET time_season_code = CASE
                            WHEN MONTH(date) IN (12, 1, 2) THEN 3
     END
 WHERE 1
+
+### density
+SELECT population_density FROM countries;
