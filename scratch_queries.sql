@@ -97,3 +97,23 @@ WHERE 1;
     UPDATE t_vasek_keberdle_projekt_SQL_final
 SET time_is_weekend = IF(WEEKDAY(date) > 4, 1 ,0)
 WHERE 1;
+
+
+
+#season_code
+/**
+  Meteorologické jaro začíná 1. března a končí 31. května
+  https://cs.wikipedia.org/wiki/Ro%C4%8Dn%C3%AD_obdob%C3%AD
+   */
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD time_season_code tinyint(1) NULL
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final
+SET time_season_code = CASE
+                           WHEN MONTH(date) IN (3, 4, 5) THEN 0
+                           WHEN MONTH(date) IN (6, 7, 8) THEN 1
+                           WHEN MONTH(date) IN (9, 10, 11) THEN 2
+                           WHEN MONTH(date) IN (12, 1, 2) THEN 3
+    END
+WHERE 1
