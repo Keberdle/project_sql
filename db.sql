@@ -17,17 +17,6 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-CREATE TABLE `attendees` (
-  `name` text DEFAULT NULL,
-  `profession` text DEFAULT NULL,
-  `employment` text DEFAULT NULL,
-  `motivation` text DEFAULT NULL,
-  `tableau_link` text DEFAULT NULL,
-  `city` text DEFAULT NULL,
-  `start_date` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 CREATE TABLE `cities` (
   `city` text DEFAULT NULL,
   `city_ascii` text DEFAULT NULL,
@@ -40,25 +29,6 @@ CREATE TABLE `cities` (
   `capital` text DEFAULT NULL,
   `population` double DEFAULT NULL,
   `id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `companies` (
-  `company` text DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `high` double DEFAULT NULL,
-  `low` double DEFAULT NULL,
-  `open` double DEFAULT NULL,
-  `close` double DEFAULT NULL,
-  `volume` double DEFAULT NULL,
-  `adj_close` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `content` (
-  `lekce` int(11) DEFAULT NULL,
-  `tema` text DEFAULT NULL,
-  `content` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -101,17 +71,6 @@ CREATE TABLE `country_codes` (
   `iso3` text DEFAULT NULL,
   `iso2` text DEFAULT NULL,
   KEY `ix_country_codes_index` (`index`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `country_religion_share` (
-  `country` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `country_rel_share` (
-  `country` text DEFAULT NULL,
-  `rel_share` decimal(20,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -204,22 +163,6 @@ CREATE TABLE `covid19_tests` (
   KEY `date` (`date`(768))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(255) DEFAULT NULL,
-  `lastName` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `age` int(11) NOT NULL,
-  `gender` enum('male','female') DEFAULT NULL,
-  `gender2` enum('male','female') DEFAULT 'male',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 CREATE TABLE `demographics` (
   `index` bigint(20) DEFAULT NULL,
   `country` text DEFAULT NULL,
@@ -230,17 +173,6 @@ CREATE TABLE `demographics` (
   `mortaliy_under5` double DEFAULT NULL,
   `population` double DEFAULT NULL,
   KEY `ix_demographics_index` (`index`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `doctor` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `address_id` int(11) DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -255,41 +187,6 @@ CREATE TABLE `economies` (
   `mortaliy_under5` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE `edinburgh_bikes` (
-  `index` bigint(20) DEFAULT NULL,
-  `started_at` text DEFAULT NULL,
-  `ended_at` text DEFAULT NULL,
-  `duration` bigint(20) DEFAULT NULL,
-  `start_station_id` bigint(20) DEFAULT NULL,
-  `start_station_name` text DEFAULT NULL,
-  `start_station_description` text DEFAULT NULL,
-  `start_station_latitude` double DEFAULT NULL,
-  `start_station_longitude` double DEFAULT NULL,
-  `end_station_id` bigint(20) DEFAULT NULL,
-  `end_station_name` text DEFAULT NULL,
-  `end_station_description` text DEFAULT NULL,
-  `end_station_latitude` double DEFAULT NULL,
-  `end_station_longitude` double DEFAULT NULL,
-  KEY `ix_edinburgh_bikes_index` (`index`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `edinburgh_weather` (
-  `time` text DEFAULT NULL,
-  `temp` text DEFAULT NULL,
-  `feels` text DEFAULT NULL,
-  `wind` text DEFAULT NULL,
-  `gust` text DEFAULT NULL,
-  `rain` text DEFAULT NULL,
-  `humidity` text DEFAULT NULL,
-  `cloud` text DEFAULT NULL,
-  `pressure` text DEFAULT NULL,
-  `vis` text DEFAULT NULL,
-  `date` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 CREATE TABLE `life_expectancy` (
   `index` bigint(20) DEFAULT NULL,
   `country` text DEFAULT NULL,
@@ -297,40 +194,6 @@ CREATE TABLE `life_expectancy` (
   `year` bigint(20) DEFAULT NULL,
   `life_expectancy` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `life_expectyncy_diff` (
-  `country` text DEFAULT NULL,
-  `life_expectancy_diff` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `list_of_medicaments` (
-  `prescription_id` int(11) DEFAULT NULL,
-  `medicament_id` int(11) DEFAULT NULL,
-  `amount` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `london_living` (
-  `Area` text DEFAULT NULL,
-  `Rent_per_m` double DEFAULT NULL,
-  `green_spec` double DEFAULT NULL,
-  `travel` double DEFAULT NULL,
-  `safety` double DEFAULT NULL,
-  `schools` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `london_living_missing` (
-  `Area` text DEFAULT NULL,
-  `Rent_per_m` double DEFAULT NULL,
-  `green_spec` double DEFAULT NULL,
-  `travel` double DEFAULT NULL,
-  `safety` double DEFAULT NULL,
-  `schools` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 CREATE TABLE `lookup_table` (
   `country` text DEFAULT NULL,
@@ -349,12 +212,6 @@ CREATE TABLE `lookup_table` (
   KEY `ix_lookup_table_country` (`country`(768))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE `marketing_data` (
-  `ID` varchar(1024) DEFAULT NULL,
-  `Revenue` varchar(1024) DEFAULT NULL,
-  `Date` varchar(1024) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `median_age` (
@@ -388,42 +245,6 @@ CREATE TABLE `median_age` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-CREATE TABLE `medicament` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `price_insurance` float DEFAULT NULL,
-  `price_patient` float DEFAULT NULL,
-  `unit` varchar(10) DEFAULT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `patient` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `address_id` int(11) DEFAULT NULL,
-  `insurance_company` varchar(255) DEFAULT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `popis_tabulek` (
-  `moje_jmeno` text DEFAULT NULL,
-  `tabulka` text DEFAULT NULL,
-  `popis` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 CREATE TABLE `pop_religion_per_country` (
   `year` bigint(20) DEFAULT NULL,
@@ -432,24 +253,6 @@ CREATE TABLE `pop_religion_per_country` (
   `share_pop_per_country` double(19,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE `prescription` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `doctor_id` int(11) DEFAULT NULL,
-  `patient_id` int(11) DEFAULT NULL,
-  `valid_from` datetime DEFAULT NULL,
-  `valid_to` datetime DEFAULT NULL,
-  `is_released` tinyint(1) DEFAULT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-CREATE TABLE `products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `price` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `religions` (

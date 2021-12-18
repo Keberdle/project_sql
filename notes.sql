@@ -25,6 +25,8 @@ SELECT * FROM covid19_tests WHERE country LIKE 'Czech%'; # CR
 SELECT * FROM weather WHERE country LIKE 'Czech%';
 SELECT * FROM lookup_table WHERE country LIKE 'Czech%'; # Czechia
 
+SELECT * FROM cities WHERE country LIKE 'Czech%'; # Czechia has iso3
+
 SELECT *
 FROM covid19_basic_differences cbd
 LEFT JOIN lookup_table lt ON cbd.country = lt.country
