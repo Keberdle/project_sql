@@ -105,3 +105,15 @@ UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
 SET tvkpSf.GINI = c.GINI
 WHERE 1
 ;
+
+
+#mortaliy_under5
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD mortaliy_under5 double NULL
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
+    LEFT JOIN economies c ON tvkpSf.country = c.country AND YEAR(tvkpSf.date) = c.year
+SET tvkpSf.mortaliy_under5 = c.mortaliy_under5
+WHERE 1
+;
