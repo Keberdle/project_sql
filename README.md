@@ -20,8 +20,10 @@ Project for course data analytics
 * find best table as source of variable
 * write finded data for control 
 * create column with same datatype
-* insert values by [INSERT  - SELECT] (https://mariadb.com/kb/en/insert-select/) to my table
-* check for empty values and compare with handy serach in table for cotrol 
+* insert values 
+  * by [INSERT  - SELECT] (https://mariadb.com/kb/en/insert-select/) to my table
+  * by *UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf LEFT JOIN*
+* check for empty values and compare with handy search in table for control 
 
 
 ## GOAL
