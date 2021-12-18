@@ -34,3 +34,8 @@ SET tvkpSf.population = c.population
 WHERE 1;
 
 
+#TIME
+##is_weekend
+UPDATE t_vasek_keberdle_projekt_SQL_final
+SET time_is_weekend = IF(WEEKDAY(date) > 4, 1 ,0)
+WHERE 1;

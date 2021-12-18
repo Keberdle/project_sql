@@ -79,3 +79,21 @@ UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
 LEFT JOIN countries c ON tvkpSf.country = c.country
 SET tvkpSf.population = c.population
 WHERE 1;
+
+
+
+#TIME
+##is_weekend
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final ADD time_is_weekend tinyint(1) NULL;
+
+SELECT
+       DISTINCT
+    date,
+    WEEKDAY(date)
+FROM
+    t_vasek_keberdle_projekt_SQL_final
+WHERE 1;
+
+    UPDATE t_vasek_keberdle_projekt_SQL_final
+SET time_is_weekend = IF(WEEKDAY(date) > 4, 1 ,0)
+WHERE 1;
