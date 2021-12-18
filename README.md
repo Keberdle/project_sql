@@ -1,12 +1,18 @@
 # SQL
 Project for course data analytics
 
-## links
+## Links
 * [Zadání](https://learn.engeto.com/cs/kurz/cviceni-pro-datovou-akademii/studium/DbO2pMl8SIykg9ucGXCxdA/projekty/sql)
 * [mid map](https://orgpad.com/s/96eLznMNsrF)
 
+## Variables to extend
+* Holidays
+* Sunny days
+* region_in_world
+* government_type
 
 ## TODO
+* Use religions table instead religion_per....
 * CREATE NEW TABLE - t_vasek_keberdle_projekt_SQL_final
   * keys: country, date
 * main variables:(@NOTE: nejsou v zadání imlicitně vyžadována) 
@@ -65,6 +71,7 @@ If Saturday, Sunday time_is_weekday = 1 else 0.
 
 ### time_season_code
 Used by meteorologic seasons [Meteorologické jaro začíná 1. března a končí 31. května](https://cs.wikipedia.org/wiki/Ro%C4%8Dn%C3%AD_obdob%C3%AD)
+Can be used easily from TABLE seasons but this table was not mentioned in the assignment.
 
 ### populatio_density
 From table countries
@@ -82,3 +89,6 @@ Form table economies by country and year of date column mortaliy_under5
 
 ### median_age_2018
 From table countries
+
+### religions
+

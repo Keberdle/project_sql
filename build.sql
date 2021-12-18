@@ -165,43 +165,65 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD religion_other double NULL,
     ADD religion_judaism double NULL
 ;
+#FIX CZECH/CZECHIA
+DROP TABLE IF EXISTS tmp_religions;
+CREATE TABLE tmp_religions LIKE religions;
+INSERT INTO tmp_religions SELECT * FROM religions;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_christianity = r.share_pop_per_country
+UPDATE tmp_religions  t
+    LEFT JOIN lookup_table lt ON t.country = lt.country AND lt.province IS NULL
+    LEFT JOIN countries c ON lt.iso3 = c.iso3
+SET t.country = c.country
+WHERE lt.country != c.country
+;
+
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_christianity =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Christianity'
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_islam = r.share_pop_per_country
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_islam =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Islam'
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_unaffiliated = r.share_pop_per_country
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_unaffiliated =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Unaffiliated Religions'
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_hinduism = r.share_pop_per_country
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_hinduism =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Hinduism'
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_buddhism = r.share_pop_per_country
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_buddhism =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Buddhism'
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_folk = r.share_pop_per_country
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_folk =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Folk Religions'
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_other = r.share_pop_per_country
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_other =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Other Religions'
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
-SET t.religion_judaism = r.share_pop_per_country
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_judaism =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Judaism'
 ;
+
+DROP TABLE IF EXISTS tmp_religions;

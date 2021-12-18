@@ -142,6 +142,10 @@ SELECT DISTINCT religion
 FROM pop_religion_per_country
 WHERE country IN (SELECT country FROM t_vasek_keberdle_projekt_SQL_final);
 
+SELECT t.population, r.population, ROUND(100*r.population/t.population, 2)
+FROM t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN religions r ON t.country = r.country AND year = YEAR(date)
+WHERE religion = 'Christianity' AND r.population > 0;
 
 # fix Czechia problem
 ALTER TABLE `lookup_table`
@@ -157,4 +161,7 @@ FROM covid19_basic_differences cbd
          LEFT JOIN lookup_table lt ON cbd.country = lt.country
          LEFT JOIN countries c ON lt.iso3 = c.iso3
 WHERE lt.country != c.country AND lt.province IS NULL
-ORDER BY lt.country
+ORDER BY lt.country;
+
+ALTER TABLE `religions`
+ADD INDEX `year_country` (`year`, `country`(32));
