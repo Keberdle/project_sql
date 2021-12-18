@@ -66,4 +66,10 @@ If Saturday, Sunday time_is_weekday = 1 else 0.
 ### time_season_code
 Used by meteorologic seasons [Meteorologické jaro začíná 1. března a končí 31. května](https://cs.wikipedia.org/wiki/Ro%C4%8Dn%C3%AD_obdob%C3%AD)
 
-### 
+### populatio_density
+From table countries
+
+### GDP
+From table economies by country and year of date
+
+

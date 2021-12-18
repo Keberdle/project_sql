@@ -120,3 +120,7 @@ WHERE 1
 
 ### density
 SELECT population_density FROM countries;
+
+#GDP
+ALTER TABLE economies ADD INDEX `country` (`country`);
+ALTER TABLE economies ADD INDEX `year` (year);
