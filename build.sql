@@ -15,7 +15,7 @@ ALTER TABLE `t_vasek_keberdle_projekt_SQL_final`
 ;
 
 ALTER TABLE `t_vasek_keberdle_projekt_SQL_final`
-    ADD INDEX `country` (`country`)
+    ADD INDEX `country` (`country`(32))
 ;
 
 # FILL basic data confirmed and tests
@@ -28,7 +28,29 @@ FROM covid19_basic_differences c19b
          LEFT JOIN covid19_tests c19t ON c19b.country = c19t.country AND c19b.date = c19t.date
 GROUP BY c19b.country, c19b.date
 ;
+/**
+  SLOWLY good way?
+  INSERT INTO t_vasek_keberdle_projekt_SQL_final
+SELECT DISTINCT c19b.country,
+                c19b.date,
+                c19b.confirmed,
+                MAX(tests_performed) AS tests_performed
+FROM covid19_basic_differences c19b
+         LEFT JOIN lookup_table lt ON c19b.country = lt.country
+         LEFT JOIN countries c ON lt.iso3 = c.iso3
+         LEFT JOIN covid19_tests c19t ON c.country = c19t.country AND c19b.date = c19t.date
+WHERE lt.province IS NULL
+GROUP BY c.country, c19b.date
+ */
 
+## FIX Czechia / Czech republic
+
+UPDATE t_vasek_keberdle_projekt_SQL_final  t
+    LEFT JOIN lookup_table lt ON t.country = lt.country AND lt.province IS NULL
+    LEFT JOIN countries c ON lt.iso3 = c.iso3
+SET t.country = c.country
+WHERE lt.country != c.country
+;
 #[2021-12-17 22:58:07] 93,136 rows affected in 20 s 467 ms
 
 #population

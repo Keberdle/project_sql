@@ -16,7 +16,9 @@ ALTER TABLE `covid19_tests` ADD INDEX `country` (`country`);
 SELECT DISTINCT  c19b.country, c19b.date, confirmed, tests_performed
 FROM covid19_basic_differences c19b
 RIGHT JOIN covid19_tests c19t ON c19b.country = c19t.country AND c19b.date = c19t.date
-WHERE c19b.date IS NULL ;
+WHERE 1
+#AND c19b.date IS NULL
+;
 
 # FIx tests
 SELECT COUNT(entity), entity
@@ -141,3 +143,18 @@ FROM pop_religion_per_country
 WHERE country IN (SELECT country FROM t_vasek_keberdle_projekt_SQL_final);
 
 
+# fix Czechia problem
+ALTER TABLE `lookup_table`
+    ADD INDEX `iso3` (`iso3`(3));
+
+ALTER TABLE `countries`
+    ADD INDEX `country` (`country`(32)),
+    ADD INDEX `iso3` (`iso3`(3));
+
+
+SELECT DISTINCT c.country, lt.country, cbd.country
+FROM covid19_basic_differences cbd
+         LEFT JOIN lookup_table lt ON cbd.country = lt.country
+         LEFT JOIN countries c ON lt.iso3 = c.iso3
+WHERE lt.country != c.country AND lt.province IS NULL
+ORDER BY lt.country
