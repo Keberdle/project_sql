@@ -95,31 +95,6 @@ CREATE TABLE `countries` (
   `iso3` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE `countries_to_finale_gdp_gini_mor` (
-  `Date` date DEFAULT NULL,
-  `Country` text DEFAULT NULL,
-  `Confirmed` double DEFAULT NULL,
-  `Covid_Tests` double DEFAULT NULL,
-  `Population` double DEFAULT NULL,
-  `seasons` bigint(20) DEFAULT NULL,
-  `week` bigint(20) DEFAULT NULL,
-  `population_density` double DEFAULT NULL,
-  `GDP_per_person` double DEFAULT NULL,
-  `gini_coef` double DEFAULT NULL,
-  `children_mortality` double DEFAULT NULL,
-  `med_age_2018` double DEFAULT NULL,
-  `christianity` double DEFAULT NULL,
-  `islam` double DEFAULT NULL,
-  `Hinduism` double DEFAULT NULL,
-  `Judaism` double DEFAULT NULL,
-  `life_expectancy_diff` double DEFAULT NULL,
-  `avg_temperature` double DEFAULT NULL,
-  `number_of_raining_hours` bigint(20) DEFAULT NULL,
-  `max_wind` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 CREATE TABLE `country_codes` (
   `index` bigint(20) DEFAULT NULL,
   `country` text DEFAULT NULL,

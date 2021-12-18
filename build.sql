@@ -93,3 +93,15 @@ UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
 SET tvkpSf.GDP = c.GDP
 WHERE 1
 ;
+
+
+#GINI
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD GINI double NULL
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
+    LEFT JOIN economies c ON tvkpSf.country = c.country AND YEAR(tvkpSf.date) = c.year
+SET tvkpSf.GINI = c.GINI
+WHERE 1
+;

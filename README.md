@@ -72,4 +72,7 @@ From table countries
 ### GDP
 From table economies by country and year of date
 
+### GINI
+From table economies by country and year of date
+
 
