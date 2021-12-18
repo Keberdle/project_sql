@@ -28,6 +28,8 @@ FROM covid19_basic_differences c19b
          LEFT JOIN covid19_tests c19t ON c19b.country = c19t.country AND c19b.date = c19t.date
 GROUP BY c19b.country, c19b.date
 ;
+#todo fix test table use Czech republic!!
+
 /**
   SLOWLY good way?
   INSERT INTO t_vasek_keberdle_projekt_SQL_final

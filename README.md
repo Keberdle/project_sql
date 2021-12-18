@@ -34,7 +34,7 @@ Výstupem by měla být tabulka na databázi, ze které se požadovaná data daj
 #### tests_performed
 Source table covid19_tests
 Problems bellow is about 1% of data and only for some countries. So it no depend too much on solutions.
-Problems:
+ISSUEs:
  
 **1, Bahrain has only enitity = "unit unclear"** 
 Solution: Use it as number of test - is used now.
@@ -71,9 +71,11 @@ From table countries
 
 ### GDP
 From table economies by country and year of date
+ISSUE: we have no GINI information for 2021
 
 ### GINI
 From table economies by country and year of date
+ISSUE: we have no GINI information for this years
 
 ### Children mortality - mortaliy_under5
 Form table economies by country and year of date column mortaliy_under5
