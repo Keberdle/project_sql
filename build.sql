@@ -10,6 +10,9 @@ CREATE TABLE t_vasek_keberdle_projekt_SQL_final (
 )
 ;
 
+ALTER TABLE `t_vasek_keberdle_projekt_SQL_final` ADD INDEX `date` (`date`);
+ALTER TABLE `t_vasek_keberdle_projekt_SQL_final` ADD INDEX `country` (`country`);
+
 # FILL basic data confirmed and tests
 INSERT INTO t_vasek_keberdle_projekt_SQL_final
 SELECT DISTINCT c19b.country,
