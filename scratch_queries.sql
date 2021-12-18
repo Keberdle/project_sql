@@ -129,3 +129,15 @@ ALTER TABLE economies ADD INDEX `year` (year);
 #GINI
 
 SELECT MAX(gini) FROM economies;
+
+
+
+#religions
+ALTER TABLE pop_religion_per_country ADD INDEX `country` (`country`);
+ALTER TABLE pop_religion_per_country ADD INDEX `year` (year);
+
+SELECT DISTINCT religion
+FROM pop_religion_per_country
+WHERE country IN (SELECT country FROM t_vasek_keberdle_projekt_SQL_final);
+
+

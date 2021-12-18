@@ -36,9 +36,9 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD population double NULL
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
-    LEFT JOIN countries c ON tvkpSf.country = c.country
-SET tvkpSf.population = c.population
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN countries c ON t.country = c.country
+SET t.population = c.population
 WHERE 1
 ;
 
@@ -77,9 +77,9 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD population_density double NULL
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
-    LEFT JOIN countries c ON tvkpSf.country = c.country
-SET tvkpSf.population_density = c.population_density
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN countries c ON t.country = c.country
+SET t.population_density = c.population_density
 WHERE 1
 ;
 
@@ -88,9 +88,9 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD GDP double NULL
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
-    LEFT JOIN economies c ON tvkpSf.country = c.country AND YEAR(tvkpSf.date) = c.year
-SET tvkpSf.GDP = c.GDP
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
+SET t.GDP = c.GDP
 WHERE 1
 ;
 
@@ -100,9 +100,9 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD GINI double NULL
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
-    LEFT JOIN economies c ON tvkpSf.country = c.country AND YEAR(tvkpSf.date) = c.year
-SET tvkpSf.GINI = c.GINI
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
+SET t.GINI = c.GINI
 WHERE 1
 ;
 
@@ -112,9 +112,9 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD mortaliy_under5 double NULL
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
-    LEFT JOIN economies c ON tvkpSf.country = c.country AND YEAR(tvkpSf.date) = c.year
-SET tvkpSf.mortaliy_under5 = c.mortaliy_under5
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
+SET t.mortaliy_under5 = c.mortaliy_under5
 WHERE 1
 ;
 
@@ -123,8 +123,60 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD median_age_2018 double NULL
 ;
 
-UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
-    LEFT JOIN countries c ON tvkpSf.country = c.country
-SET tvkpSf.median_age_2018 = c.median_age_2018
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN countries c ON t.country = c.country
+SET t.median_age_2018 = c.median_age_2018
 WHERE c.median_age_2018 IS NOT NULL
+;
+
+#religions
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD religion_christianity double NULL,
+    ADD religion_islam double NULL,
+    ADD religion_unaffiliated double NULL,
+    ADD religion_hinduism double NULL,
+    ADD religion_buddhism double NULL,
+    ADD religion_folk double NULL,
+    ADD religion_other double NULL,
+    ADD religion_judaism double NULL
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_christianity = r.share_pop_per_country
+WHERE religion = 'Christianity'
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_islam = r.share_pop_per_country
+WHERE religion = 'Islam'
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_unaffiliated = r.share_pop_per_country
+WHERE religion = 'Unaffiliated Religions'
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_hinduism = r.share_pop_per_country
+WHERE religion = 'Hinduism'
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_buddhism = r.share_pop_per_country
+WHERE religion = 'Buddhism'
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_folk = r.share_pop_per_country
+WHERE religion = 'Folk Religions'
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_other = r.share_pop_per_country
+WHERE religion = 'Other Religions'
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t LEFT JOIN pop_religion_per_country r ON t.country = r.country AND year = YEAR(date)
+SET t.religion_judaism = r.share_pop_per_country
+WHERE religion = 'Judaism'
 ;
