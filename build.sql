@@ -24,3 +24,12 @@ FROM covid19_basic_differences c19b
 ;
 #[2021-12-17 22:58:07] 93,136 rows affected in 20 s 467 ms
 
+#population
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final ADD population double NULL;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
+    LEFT JOIN countries c ON tvkpSf.country = c.country
+SET tvkpSf.population = c.population
+WHERE 1;
+
+

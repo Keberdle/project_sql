@@ -64,10 +64,18 @@ ORDER BY country
 
 SELECT *
 FROM covid19_tests
-WHERE country LIKE 'BAhrain'
+WHERE country LIKE 'BAhrain';
 #TODO jaká data o testování tedy načíst nebo donačíst / odečíst
 #nejprve zjistit zda "units unclear" jsou opravdu data opravná viz Bahrain má pouze "unit unclear"
 #zmenit na pocty kde je people tested ?
 #zmenit pocty kde je entity = people tested (incl. non-PCR?
 #odecist units unclear (incl. non-PCR)?
 
+
+# pocet obyvatel
+# @TODO rozdelit na provincie? nebude pro ně dostatek dat nejspíše
+SELECT country,  population FROM countries WHERE population IS NULL;
+UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf
+LEFT JOIN countries c ON tvkpSf.country = c.country
+SET tvkpSf.population = c.population
+WHERE 1;
