@@ -8,7 +8,6 @@ Výstupem by měla být tabulka na databázi, ze které se požadovaná data daj
 
 ## Links
 * [Zadání](https://learn.engeto.com/cs/kurz/cviceni-pro-datovou-akademii/studium/DbO2pMl8SIykg9ucGXCxdA/projekty/sql)
-* [mid map](https://orgpad.com/s/96eLznMNsrF)
 
 ## Variables to extend
 * Holidays - people change behavior on holidays - shops closed etc.
