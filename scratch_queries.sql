@@ -184,3 +184,48 @@ WHERE life_expectancy_extend IS NULL;
 SELECT *
 FROM t_vasek_keberdle_projekt_SQL_final
 WHERE country LIKE 'Cze%';
+
+
+#WEATER
+SELECT * FROM weather WHERE gust NOT LIKE '%km/h';
+SELECT * FROM weather WHERE time = '06:00';
+SELECT CONVERT(temp, INTEGER), weather.* FROM weather WHERE 1;
+ALTER TABLE `weather`
+    ADD INDEX `city_date_time` (`city`(32), `date`, time(5));
+
+#Avg temp
+
+SELECT c.country,
+       DATE(w_six.date) AS date,
+       capital_city,
+       (w_six.temp + w_fifteen.temp + 2 * w_twenty_one.temp)/4 AS avg_temp
+FROM countries c
+         LEFT JOIN (SELECT REPLACE(temp, ' °C', '') AS temp, city, date  FROM weather WHERE time = '06:00') w_six ON c.capital_city = w_six.city
+         LEFT JOIN (SELECT REPLACE(temp, ' °C', '') AS temp, city, date  FROM weather WHERE time = '15:00') w_fifteen ON c.capital_city = w_fifteen.city
+         LEFT JOIN (SELECT REPLACE(temp, ' °C', '') AS temp, city, date  FROM weather WHERE time = '21:00') w_twenty_one ON c.capital_city = w_twenty_one.city
+WHERE 1
+  AND w_six.date = w_fifteen.date
+  AND w_six.date = w_twenty_one.date
+GROUP BY w_six.city, w_six.date
+;
+#Rainy
+SELECT c.country,
+       DATE(date),
+       capital_city,
+       SUM(IF(rain NOT LIKE '0.0 mm', 1, 0)) * 3 AS rainy_hours
+FROM countries c
+         LEFT JOIN weather w ON c.capital_city = w.city
+WHERE w.city IS NOT NULL
+GROUP BY city, date
+;
+
+# gust
+SELECT c.country,
+       DATE(date),
+       capital_city,
+       MAX(CONVERT(REPLACE(gust, ' km/h', ''), INTEGER )) AS max_gust
+FROM countries c
+         LEFT JOIN weather w ON c.capital_city = w.city
+WHERE w.city IS NOT NULL
+GROUP BY city, date
+;

@@ -98,3 +98,20 @@ From table religions by year and country
 
 ### life_expectancy_extend
 Life expectancy in 2015 - jife expectancy in 1695 from table life_expectancy
+
+## Weather
+By capital city
+Only ~12% data has weather information
+
+### Avg daily teperature
+counted as (7 + 14 + 2*21)/4
+https://www.meteosvatonovice.cz/obecne-informace/metodika-mereni/
+
+I have temp in 3,6,9,12,15,18,21,0 hour in day 
+Best will be count temp in 7 by weighted arithmetic mean (2x6 + 9)/3
+
+## Rainy hours
+Because table weater contains data only per 3 hour we must multipli hours by 3
+
+## gust
+MAX gust by day and country (capital  city)

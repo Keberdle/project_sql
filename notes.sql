@@ -22,7 +22,7 @@ SELECT * FROM covid19_basic_differences WHERE country LIKE 'Czech%'; # Czechia
 # SELECT * FROM covid19_testing WHERE country LIKE 'Czech%; NOT EXIST!!
 SELECT * FROM covid19_tests WHERE country LIKE 'Czech%'; # CR
 
-SELECT * FROM weather WHERE country LIKE 'Czech%';
+SELECT * FROM weather WHERE weather.city LIKE 'Amsterdam%';
 SELECT * FROM lookup_table WHERE country LIKE 'Czech%'; # Czechia
 
 SELECT * FROM cities WHERE country LIKE 'Czech%'; # Czechia has iso3

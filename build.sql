@@ -12,11 +12,11 @@ CREATE TABLE t_vasek_keberdle_projekt_SQL_final (
 )
 ;
 
-#basic diferences table use Czechia and test !!
-## FIX Czechia / Czech republic
-
 ALTER TABLE `t_vasek_keberdle_projekt_SQL_final`
     ADD PRIMARY KEY `date_country` (`date`, `country`(32));
+
+#basic diferences table use Czechia and test !!
+## FIX Czechia / Czech republic
 
 CREATE TABLE tmp_covid19_basic_differences LIKE covid19_basic_differences;
 INSERT INTO tmp_covid19_basic_differences SELECT * FROM covid19_basic_differences;
@@ -240,5 +240,63 @@ UPDATE t_vasek_keberdle_projekt_SQL_final t
                WHERE y1965.year = 1965
                  AND y2015.year = 2015) l ON t.country = l.country
 SET t.life_expectancy_extend = l.life_expectancy_extend
+WHERE 1
+;
+
+#WEATER
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD avg_temp    double NULL,
+    ADD rainy_hours double NULL,
+    ADD max_gust    double NULL
+;
+#Avg temp
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN (
+        SELECT c.country,
+               DATE(w_six.date)                                          AS date,
+               capital_city,
+               (w_six.temp + w_fifteen.temp + 2 * w_twenty_one.temp) / 4 AS avg_temp
+        FROM countries c
+                 LEFT JOIN (SELECT REPLACE(temp, ' °c', '') AS temp, city, date FROM weather WHERE time = '06:00') w_six
+                           ON c.capital_city = w_six.city
+                 LEFT JOIN (SELECT REPLACE(temp, ' °c', '') AS temp, city, date
+                            FROM weather
+                            WHERE time = '15:00') w_fifteen ON c.capital_city = w_fifteen.city
+                 LEFT JOIN (SELECT REPLACE(temp, ' °c', '') AS temp, city, date
+                            FROM weather
+                            WHERE time = '21:00') w_twenty_one ON c.capital_city = w_twenty_one.city
+        WHERE 1
+          AND w_six.date = w_fifteen.date
+          AND w_six.date = w_twenty_one.date
+        GROUP BY w_six.city, w_six.date) w ON t.country = w.country AND w.date = t.date
+SET t.avg_temp = w.avg_temp
+WHERE 1
+;
+
+#Rainy
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN (SELECT c.country,
+                      DATE(date)                                AS date,
+                      capital_city,
+                      SUM(IF(rain NOT LIKE '0.0 mm', 1, 0)) * 3 AS rainy_hours
+               FROM countries c
+                        LEFT JOIN weather w ON c.capital_city = w.city
+               WHERE w.city IS NOT NULL
+               GROUP BY city, date) w ON t.country = w.country AND w.date = t.date
+SET t.rainy_hours = w.rainy_hours
+WHERE 1
+;
+
+# gust
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN (SELECT c.country,
+                      DATE(date)                                        AS date,
+                      capital_city,
+                      MAX(CONVERT(REPLACE(gust, ' km/h', ''), INTEGER)) AS max_gust
+               FROM countries c
+                        LEFT JOIN weather w ON c.capital_city = w.city
+               WHERE w.city IS NOT NULL
+               GROUP BY city, date) w ON t.country = w.country AND w.date = t.date
+SET t.max_gust = w.max_gust
 WHERE 1
 ;
