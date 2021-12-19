@@ -20,14 +20,35 @@ Výstupem by měla být tabulka na databázi, ze které se požadovaná data daj
 ## TODO
 Countries without extend data (has only confirmed) :
 * Diamond Princess
-* Kosovo
+* Kosovo (has some data)
 * MS Zaandam
 * Taiwan*
 * Timor-Leste
 * West Bank and Gaza
 
-**It is Problem?!** 
+**Is it Problem?!**
 It has 422650 confirmed from 165516996 total. It is 0.26% of all data.
+
+
+**Countries without with diferent name** in table economies like "Bahamas, The" vs "Bahamas"
+
+* Bahamas
+* Brunei
+* Cape Verde
+* Diamond Princess
+* Fiji Islands
+* Holy See (Vatican City State)
+* Libyan Arab Jamahiriya
+* Micronesia, Federated States of
+* MS Zaandam
+* Saint Kitts and Nevis
+* Saint Lucia
+* Saint Vincent and the Grenadines
+* Somalia
+* Syria
+* Taiwan*
+* West Bank and Gaza
+
 
 
 ## HOW TO DO
