@@ -18,8 +18,11 @@ ALTER TABLE `t_vasek_keberdle_projekt_SQL_final`
 #basic diferences table use Czechia and test !!
 ## FIX Czechia / Czech republic
 
-CREATE TABLE tmp_covid19_basic_differences LIKE covid19_basic_differences;
-INSERT INTO tmp_covid19_basic_differences SELECT * FROM covid19_basic_differences;
+CREATE TABLE tmp_covid19_basic_differences
+    LIKE covid19_basic_differences;
+
+INSERT INTO tmp_covid19_basic_differences
+    SELECT * FROM covid19_basic_differences;
 
 UPDATE tmp_covid19_basic_differences  t
     LEFT JOIN lookup_table lt ON t.country = lt.country AND lt.province IS NULL
@@ -112,13 +115,6 @@ WHERE 1
 ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD GDP_per_citizen double NULL
 ;
-
-UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
-SET t.GDP_per_citizen = c.GDP/c.population
-WHERE 1
-;
-#fix empty values
 UPDATE t_vasek_keberdle_projekt_SQL_final t
     LEFT JOIN (SELECT
                    MAX(year) AS max_year,
@@ -137,13 +133,6 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
-SET t.GINI = c.GINI
-WHERE 1
-;
-#fix empty values
-
-UPDATE t_vasek_keberdle_projekt_SQL_final t
 LEFT JOIN (SELECT
      MAX(year) AS max_year,
      country
@@ -160,14 +149,6 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
-SET t.mortaliy_under5 = c.mortaliy_under5
-WHERE 1
-;
-
-#fix empty values
-
-UPDATE t_vasek_keberdle_projekt_SQL_final t
     LEFT JOIN (SELECT
                    MAX(year) AS max_year,
                    country
@@ -178,6 +159,7 @@ UPDATE t_vasek_keberdle_projekt_SQL_final t
 SET t.mortaliy_under5 = c.mortaliy_under5
 WHERE 1
 ;
+
 #median_age_2018
 ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD median_age_2018 double NULL
@@ -337,10 +319,10 @@ WHERE 1
 ;
 
 /**
-Queries	45
-Updated Rows	1797640
-Execute time (ms)	82350
+Queries	49
+Updated Rows	2280256
+Execute time (ms)	125402
 Fetch time (ms)	0
-Total time (ms)	82350
-Finish time	2021-12-19 15:39:05.950
+Total time (ms)	125402
+Finish time	2021-12-19 17:01:40.113
 */
