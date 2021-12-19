@@ -110,14 +110,25 @@ WHERE 1
 
 #GDP
 ALTER TABLE t_vasek_keberdle_projekt_SQL_final
-    ADD GDP double NULL
+    ADD GDP_per_citizen double NULL
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
     LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
-SET t.GDP = c.GDP/c.population
+SET t.GDP_per_citizen = c.GDP/c.population
 WHERE 1
 ;
+#fix empty values
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN (SELECT
+                   MAX(year) AS max_year,
+                   country
+               FROM economies
+               WHERE  GDP IS NOT NULL
+               GROUP BY country) y ON t.country = y.country
+    LEFT JOIN economies c ON t.country = c.country AND y.max_year = c.year
+SET t.GDP_per_citizen = c.GDP/c.population
+WHERE 1;
 
 
 #GINI
@@ -130,8 +141,19 @@ UPDATE t_vasek_keberdle_projekt_SQL_final t
 SET t.GINI = c.GINI
 WHERE 1
 ;
+#fix empty values
 
-
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+LEFT JOIN (SELECT
+     MAX(year) AS max_year,
+     country
+ FROM economies
+ WHERE  gini IS NOT NULL
+ GROUP BY country) y ON t.country = y.country
+    LEFT JOIN economies c ON t.country = c.country AND y.max_year = c.year
+SET t.GINI = c.gini
+WHERE 1
+;
 #mortaliy_under5
 ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD mortaliy_under5 double NULL
@@ -143,6 +165,19 @@ SET t.mortaliy_under5 = c.mortaliy_under5
 WHERE 1
 ;
 
+#fix empty values
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN (SELECT
+                   MAX(year) AS max_year,
+                   country
+               FROM economies
+               WHERE  mortaliy_under5 IS NOT NULL
+               GROUP BY country) y ON t.country = y.country
+    LEFT JOIN economies c ON t.country = c.country AND y.max_year = c.year
+SET t.mortaliy_under5 = c.mortaliy_under5
+WHERE 1
+;
 #median_age_2018
 ALTER TABLE t_vasek_keberdle_projekt_SQL_final
     ADD median_age_2018 double NULL
@@ -179,49 +214,49 @@ WHERE lt.country != c.country
 
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_christianity =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Christianity'
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_islam =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Islam'
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_unaffiliated =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Unaffiliated Religions'
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_hinduism =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Hinduism'
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_buddhism =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Buddhism'
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_folk =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Folk Religions'
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_other =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Other Religions'
 ;
 
 UPDATE t_vasek_keberdle_projekt_SQL_final t
-    LEFT JOIN tmp_religions r ON t.country = r.country AND year = YEAR(date)
+    LEFT JOIN tmp_religions r ON t.country = r.country AND year = 2020
 SET t.religion_judaism =  ROUND(100*r.population/t.population, 2)
 WHERE religion = 'Judaism'
 ;
@@ -300,3 +335,12 @@ UPDATE t_vasek_keberdle_projekt_SQL_final t
 SET t.max_gust = w.max_gust
 WHERE 1
 ;
+
+/**
+Queries	45
+Updated Rows	1797640
+Execute time (ms)	82350
+Fetch time (ms)	0
+Total time (ms)	82350
+Finish time	2021-12-19 15:39:05.950
+*/

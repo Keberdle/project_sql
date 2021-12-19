@@ -1,16 +1,15 @@
 # SQL
-Project for course data analytics
+Project for Engeto course Data analytics
 
 ## Links
 * [Zadání](https://learn.engeto.com/cs/kurz/cviceni-pro-datovou-akademii/studium/DbO2pMl8SIykg9ucGXCxdA/projekty/sql)
 * [mid map](https://orgpad.com/s/96eLznMNsrF)
 
 ## Variables to extend
-* Holidays
-* Sunny days - clouds
-* region_in_world
-* government_type
-* humidity
+* Holidays - people change behavior on holidays - shops closed etc.
+* Sunny days by no clouds from weather table - clouds hide Sun - Sun kills covid by drying and UV light 
+* region_in_world - in asia people wearing face mask many years ago daily.
+* humidity - virus long live in air if humidity is high.
 
 
 ## TODO
@@ -78,26 +77,30 @@ Can be used easily from TABLE seasons but this table was not mentioned in the as
 ### populatio_density
 From table countries
 
-### GDP
-From table economies by country and year of date
-ISSUE: we have no GINI information for 2021
+### GDP per citizen
+From table economies by country and year of date.
+**ISSUE: we have no GDP information for 2021**
+Fixed by using last max(year) with not null data
 
 ### GINI
-From table economies by country and year of date
-ISSUE: we have no GINI information for this years
+From table economies by country and year of date.
+**ISSUE: we have no GINI information for this years**
+Fixed by using last max(year) with not null data
 
 ### Children mortality - mortaliy_under5
 Form table economies by country and year of date column mortaliy_under5
-ISSUE: we have no information for year > 2019
+**ISSUE: we have no information for year > 2019**
+Fixed by using last max(year) with not null data
 
 ### median_age_2018
 From table countries
 
 ### religions
 From table religions by year and country
+Used for year 2020 ( it was only for years 2010,2020,2030,2040,2050)
 
 ### life_expectancy_extend
-Life expectancy in 2015 - jife expectancy in 1695 from table life_expectancy
+Life expectancy in 2015 - life expectancy in 1695 from table life_expectancy
 
 ## Weather
 By capital city

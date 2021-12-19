@@ -229,3 +229,20 @@ FROM countries c
 WHERE w.city IS NOT NULL
 GROUP BY city, date
 ;
+
+#GDP FIX
+SELECT
+       MAX(year) AS max_year,
+       country
+FROM economies
+WHERE  gini IS NOT NULL
+GROUP BY country;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN economies c ON t.country = c.country AND YEAR(t.date) = c.year
+SET t.GDP_per_citizen = c.GDP/c.population
+WHERE 1
+
+
+## ideas
+SELECT yearly_average_temperature FROM countries WHERE government_type IN ('Socialistic Republic', 'Socialistic State');
