@@ -118,7 +118,7 @@ SET time_season_code = CASE
                            WHEN MONTH(date) IN (9, 10, 11) THEN 2
                            WHEN MONTH(date) IN (12, 1, 2) THEN 3
     END
-WHERE 1
+WHERE 1;
 
 ### density
 SELECT population_density FROM countries;
@@ -132,7 +132,9 @@ ALTER TABLE economies ADD INDEX `year` (year);
 
 SELECT MAX(gini) FROM economies;
 
-
+#mortaliy_under5
+SELECT max(year) FROM economies WHERE country LIKE 'Cze%';
+SELECT max(year) FROM economies WHERE mortaliy_under5 IS NOT NULL;
 
 #religions
 ALTER TABLE pop_religion_per_country ADD INDEX `country` (`country`);
@@ -165,3 +167,20 @@ ORDER BY lt.country;
 
 ALTER TABLE `religions`
 ADD INDEX `year_country` (`year`, `country`(32));
+
+#rozdíl mezi očekávanou dobou dožití v roce 1965 a v roce 2015
+SELECT * FROM life_expectancy WHERE country like 'Cze%';
+
+SELECT y2015.country, ROUND(y2015.life_expectancy-y1965.life_expectancy) as life_expectancy_extend
+FROM life_expectancy y2015
+LEFT JOIN life_expectancy y1965 ON y2015.country = y1965.country
+WHERE y1965.year = 1965
+AND y2015.year = 2015
+ORDER BY y2015.country;
+
+SELECT *
+FROM t_vasek_keberdle_projekt_SQL_final
+WHERE life_expectancy_extend IS NULL;
+SELECT *
+FROM t_vasek_keberdle_projekt_SQL_final
+WHERE country LIKE 'Cze%';

@@ -7,12 +7,14 @@ Project for course data analytics
 
 ## Variables to extend
 * Holidays
-* Sunny days
+* Sunny days - clouds
 * region_in_world
 * government_type
+* humidity
+
 
 ## TODO
-* Use religions table instead religion_per....
+* check country "Taiwan*" 
 * CREATE NEW TABLE - t_vasek_keberdle_projekt_SQL_final
   * keys: country, date
 * main variables:(@NOTE: nejsou v zadání imlicitně vyžadována) 
@@ -86,9 +88,13 @@ ISSUE: we have no GINI information for this years
 
 ### Children mortality - mortaliy_under5
 Form table economies by country and year of date column mortaliy_under5
+ISSUE: we have no information for year > 2019
 
 ### median_age_2018
 From table countries
 
 ### religions
+From table religions by year and country
 
+### life_expectancy_extend
+Life expectancy in 2015 - jife expectancy in 1695 from table life_expectancy

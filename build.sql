@@ -227,3 +227,18 @@ WHERE religion = 'Judaism'
 ;
 
 DROP TABLE IF EXISTS tmp_religions;
+
+#life_expectancy_extend
+ALTER TABLE t_vasek_keberdle_projekt_SQL_final
+    ADD life_expectancy_extend double NULL
+;
+
+UPDATE t_vasek_keberdle_projekt_SQL_final t
+    LEFT JOIN (SELECT y2015.country, ROUND(y2015.life_expectancy - y1965.life_expectancy) AS life_expectancy_extend
+               FROM life_expectancy y2015
+                        LEFT JOIN life_expectancy y1965 ON y2015.country = y1965.country
+               WHERE y1965.year = 1965
+                 AND y2015.year = 2015) l ON t.country = l.country
+SET t.life_expectancy_extend = l.life_expectancy_extend
+WHERE 1
+;
