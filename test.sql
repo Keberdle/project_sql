@@ -55,3 +55,6 @@ SELECT DISTINCT year FROM religions WHERE 1;
 
 SELECT DISTINCT median_age_2018, year(date) FROM t_vasek_keberdle_projekt_SQL_final WHERE country = 'Czech Republic' ;
 SELECT count(1) FROM t_vasek_keberdle_projekt_SQL_final WHERE median_age_2018 IS NULL;
+
+## Countries like Taiwan*
+SELECT DISTINCT country, sum(confirmed) FROM t_vasek_keberdle_projekt_SQL_final WHERE population IS NULL GROUP BY country;

@@ -13,29 +13,29 @@ Project for Engeto course Data analytics
 
 
 ## TODO
-* check country "Taiwan*" 
-* CREATE NEW TABLE - t_vasek_keberdle_projekt_SQL_final
-  * keys: country, date
-* main variables:(@NOTE: nejsou v zadání imlicitně vyžadována) 
-  * počty nakažených
-  * počty provedených testů
-  * počet obyvatel daného státu ( pozor kde jsou ty provincie!)
-* add other variables
+Countries without extend data (has only confirmed) :
+* Diamond Princess
+* Kosovo
+* MS Zaandam
+* Taiwan*
+* Timor-Leste
+* West Bank and Gaza
+
+**It is Problem?!** 
+It has 422650 confirmed from 165516996 total. It is 0.26% of all data.
+
 
 ## HOW TO DO
-
-* find best table as source of variable
-* write finded data for control 
+For all variable
+* find best table as source (table) of variable 
 * create column with same datatype
 * insert values 
   * by [INSERT  - SELECT] (https://mariadb.com/kb/en/insert-select/) to my table
   * by *UPDATE t_vasek_keberdle_projekt_SQL_final tvkpSf LEFT JOIN*
 * check for empty values and compare with handy search in table for control 
 
-
 ## GOAL
 Výstupem by měla být tabulka na databázi, ze které se požadovaná data dají získat jedním selectem. Tabulku pojmenujte **t_{jméno}_{příjmení}_projekt_SQL_final**
-
 
 ## Description
 #### tests_performed
