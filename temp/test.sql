@@ -1,7 +1,3 @@
-SET @country = 'Czech Republic';
-SET @country_alias = 'Czechia';
-SET @date = '2020-02-22';
-
 #confirmed
 SELECT * FROM covid19_basic_differences
 WHERE country = 'Czechia'

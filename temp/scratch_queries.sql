@@ -246,3 +246,6 @@ WHERE 1
 
 ## ideas
 SELECT yearly_average_temperature FROM countries WHERE government_type IN ('Socialistic Republic', 'Socialistic State');
+
+SELECT distinct country
+FROM covid19_detail_us_differences;

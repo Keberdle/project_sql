@@ -18,11 +18,10 @@ ALTER TABLE `t_vasek_keberdle_projekt_SQL_final`
 #basic diferences table use Czechia and test !!
 ## FIX Czechia / Czech republic
 
-CREATE TABLE tmp_covid19_basic_differences
-    LIKE covid19_basic_differences;
+CREATE TABLE IF NOT EXISTS tmp_covid19_basic_differences AS (
+    SELECT * FROM covid19_basic_differences
+);
 
-INSERT INTO tmp_covid19_basic_differences
-    SELECT * FROM covid19_basic_differences;
 
 UPDATE tmp_covid19_basic_differences  t
     LEFT JOIN lookup_table lt ON t.country = lt.country AND lt.province IS NULL
@@ -184,8 +183,8 @@ ALTER TABLE t_vasek_keberdle_projekt_SQL_final
 ;
 #FIX CZECH/CZECHIA
 DROP TABLE IF EXISTS tmp_religions;
-CREATE TABLE tmp_religions LIKE religions;
-INSERT INTO tmp_religions SELECT * FROM religions;
+
+CREATE TABLE IF NOT EXISTS tmp_religions AS (SELECT * FROM religions);
 
 UPDATE tmp_religions  t
     LEFT JOIN lookup_table lt ON t.country = lt.country AND lt.province IS NULL
